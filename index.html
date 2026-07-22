@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>IntelliAir | Live Environmental Intelligence Platform</title>
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8Y69LYR99"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P8Y69LYR99');
+    </script>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- LINK TO YOUR ORGANIZED CSS FILE -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <h1><i class="fas fa-wind" style="color:var(--accent);"></i> Intelli<span>Air</span></h1>
+            <p>Environmental Intelligence Platform</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-secondary" onclick="toggleTheme()" style="padding: 10px 15px;">🌙 Dark Mode</button>
+        </div>
+    </header>
+
+    <!-- SEARCH -->
+    <div class="search-container">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="cityInput" placeholder="Search any city..." value="Mumbai">
+        </div>
+        <button class="btn-primary" onclick="fetchData()"><i class="fas fa-bolt"></i> Analyze</button>
+        <button class="btn-secondary" onclick="getLocation()"><i class="fas fa-location-dot"></i> My Location</button>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid-main">
+        <!-- LEFT: AQI & METRICS -->
+        <div class="glass-card">
+            <div class="card-header">
+                <h2 id="cityDisplay"><i class="fas fa-city" style="color:var(--accent); margin-right: 8px;"></i> Mumbai, IN</h2>
+                <span id="lastUpdated" style="font-size: 12px; color: gray;">Updating...</span>
+            </div>
+
+            <div class="aqi-container">
+                <div class="aqi-badge" id="aqiValue">--</div>
+                <div style="font-size: 14px; color: gray;" id="aqiLabel">Loading real-time data...</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-item"><i class="fas fa-temperature-high" style="color:var(--accent);"></i><span class="val" id="temp">--</span><span class="label">Temperature</span></div>
+                <div class="metric-item"><i class="fas fa-droplet" style="color:var(--accent);"></i><span class="val" id="humidity">--</span><span class="label">Humidity</span></div>
+                <div class="metric-item"><i class="fas fa-wind" style="color:var(--accent);"></i><span class="val" id="wind">--</span><span class="label">Wind Speed</span></div>
+                <div class="metric-item"><i class="fas fa-dust" style="color:var(--accent);"></i><span class="val" id="pm25">--</span><span class="label">PM2.5</span></div>
+            </div>
+
+            <div class="health-alert" id="healthAlert">🔍 Analyzing environmental data...</div>
+        </div>
+
+        <!-- RIGHT: MAP -->
+        <div class="glass-card">
+            <div class="card-header"><h2><i class="fas fa-map-pin" style="color:var(--accent);"></i> Location Map</h2></div>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- FORECAST & CHARTS -->
+    <div class="glass-card" style="margin-bottom: 20px;">
+        <div class="card-header"><h2><i class="fas fa-calendar-week" style="color:var(--accent);"></i> 7-Day Forecast</h2></div>
+        <div class="forecast-grid" id="forecastContainer">
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+            <div class="forecast-card"><div class="day">Loading</div><div class="temp">--°C</div></div>
+        </div>
+        <div class="chart-container">
+            <canvas id="weatherChart"></canvas>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built with <i class="fas fa-heart" style="color: #ef4444;"></i> for Public Health | Data by OpenWeatherMap</p>
+        <p style="margin-top: 5px; font-size: 12px;">MSc Data Science Project</p>
+    </footer>
+</div>
+
+<!-- LINK TO YOUR ORGANIZED JAVASCRIPT FILE -->
+<script src="script.js"></script>
+</body>
+</html>
