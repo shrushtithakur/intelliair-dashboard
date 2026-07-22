@@ -15,7 +15,7 @@ function toggleTheme() {
 
 // --- FETCH DATA ---
 async function fetchData(cityName = null) {
-    // FIX: If cityName is an Event object or not a string, ignore it and use the input box
+    // Fix: If cityName is an Event object, ignore it and use the input box
     const inputField = document.getElementById('cityInput');
     let city = (typeof cityName === 'string' && cityName.trim() !== '') ? cityName : inputField.value.trim();
     
@@ -75,7 +75,7 @@ async function fetchData(cityName = null) {
         const forecast = await forecastRes.json();
         updateForecast(forecast);
 
-        // 8. GOOGLE ANALYTICS TRACKING EVENT
+        // 8. GOOGLE ANALYTICS TRACKING EVENT (Uses the new ID in index.html)
         gtag('event', 'city_search', {
             'event_category': 'IntelliAir Dashboard',
             'event_label': city,
