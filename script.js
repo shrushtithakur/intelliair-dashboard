@@ -15,8 +15,15 @@ function toggleTheme() {
 
 // --- FETCH DATA ---
 async function fetchData(cityName = null) {
-    const city = cityName || document.getElementById('cityInput').value.trim() || "Mumbai";
-    document.getElementById('cityInput').value = city;
+    // FIX: If cityName is an Event object or not a string, ignore it and use the input box
+    const inputField = document.getElementById('cityInput');
+    let city = (typeof cityName === 'string' && cityName.trim() !== '') ? cityName : inputField.value.trim();
+    
+    // Fallback to Mumbai if empty
+    if (!city) city = "Mumbai";
+    
+    inputField.value = city; // Update the box with the correct city name
+
     document.getElementById('cityDisplay').innerHTML = `<i class="fas fa-city" style="color:var(--accent); margin-right: 8px;"></i> ${city}, IN`;
     document.getElementById('lastUpdated').innerText = "Fetching...";
     document.getElementById('aqiValue').innerText = "--";
